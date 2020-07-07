@@ -1,0 +1,51 @@
+@import play.data.Form
+@(title : String, action : String, url: play.api.mvc.Call, form : Form[Dosen])
+@layout.main(action + " Dosen", action + " Dosen"){
+    <div class="panel-body">
+        <div id="messages-div">
+            @if(flash.containsKey("success")) {
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    @flash.get("success")
+                </div>
+            }
+            @if(flash.containsKey("error")) {
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    @flash.get("error")
+                </div>
+            }
+        </div>
+
+        <form action="@url" method="POST" class="form-horizontal" id="form-dosen" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <input type="hidden" name="id" id="id" value="@form("id").value()" >
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="name">Nama Dosen</label>
+                <div class="col-lg-4">
+                    <input class="form-control" type="text" name="name" id="name" value="@form("name").value()" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="nrp">NRP</label>
+                <div class="col-lg-4">
+                    <input class="form-control" type="text" name="nrp" id="nrp" value="@form("nrp").value()" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <a href="@routes.DosenController.index()" class="btn btn-warning" id="btn-back">
+                        Kembali
+                    </a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+}

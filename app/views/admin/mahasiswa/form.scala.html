@@ -1,0 +1,138 @@
+@import java.util
+@import play.data.Form
+@(title:String, action: String, url: play.api.mvc.Call, form : Form[Mahasiswa], jurusan: java.util.List[Jurusan])
+    @layout.main( action + " Mahasiswa", action + " Mahasiswa", scripts){
+        <div class="panel-body">
+            <div id="messages-div">
+                @if(flash.containsKey("success")) {
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        @flash.get("success")
+                    </div>
+                }
+                @if(flash.containsKey("error")) {
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        @flash.get("error")
+                    </div>
+                }
+            </div>
+
+            <form action="@url" method="POST" class="form-horizontal" id="form-mahasiswa" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <input type="hidden" name="@form("id").name()" id="id" value="@form("id").value()" >
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="name">Nama Mahasiswa</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="text" name="name" id="name" value="@form("name").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="nim">NIM</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="text" name="nim" id="nim" value="@form("nim").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="jurusan">Jurusan</label>
+                    <div class="col-lg-4">
+                        <select class="form-control" name="jurusanID" id="jurusanID">
+                            <option disabled selected value="">Pilih Jurusan</option>
+                            @for(data <- jurusan){
+                                <option value="@data.id" >@data.name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="angkatan">Angkatan</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="text" name="angkatan" id="angkatan" value="@form("angkatan").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="email">Email</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="email" name="email" id="email" value="@form("email").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="birth">Tanggal Lahir</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="date" name="birth" id="birth" value="@form("birth").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="no_phone">Nomor Telepon</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type="text" name="no_phone" id="no_phone" value="@form("no_phone").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="address">Alamat</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" type=text name="address" id="address" value="@form("address").value()" >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Foto</label>
+                    <div class="col-lg-4">
+                        <input type="file" class="form-control" name="image" id="image" accept=".png, .jpg, .jpeg" value="">
+                        <img style="display: none;
+                            width: 200px;
+                            height: 200px;" id="preview"
+                        src="@routes.Assets.versioned("images/upload/avatars/" + form("image").value())" alt="preview_image" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <a href="@routes.MahasiswaController.index()" class="btn btn-warning" id="btn-back">
+                            Kembali
+                        </a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+
+    @scripts = {
+        <script>
+                if ($("#id").val() !== "") {
+                    $("#preview").css('display', 'block');
+                    readURL($("#image"));
+                }
+
+                function readURL(input) {
+
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#preview').attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#image").change(function () {
+                    $("#preview").css('display', 'block');
+                    readURL(this);
+                });
+
+        </script>
+
+    }

@@ -1,0 +1,44 @@
+@import play.data.Form
+@(title:String, action:String, url:play.api.mvc.Call, form:Form[Jurusan])
+
+@layout.main(action + " Jurusan", action + " Jurusan"){
+    <div class="panel-body">
+
+        <div id="messages-div">
+            @if(flash.containsKey("success")) {
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    @flash.get("success")
+                </div>
+            }
+            @if(flash.containsKey("error")) {
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    @flash.get("error")
+                </div>
+            }
+        </div>
+
+        <form action="@url" method="POST" class="form-horizontal" id="form-jurusan" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <input type="hidden" id="id" name="@form("id").name()" value="@form("id").value()">
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2" for="name">Nama Jurusan</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" name="name" id="name" value="@form("name").value()">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <a href="@routes.JurusanController.index()" class="btn btn-warning" id="btn-back">
+                        Kembali
+                    </a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}

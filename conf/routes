@@ -1,0 +1,50 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                  @controllers.HomeController.index()
+#Admin page
+#Admin
+GET         /admin                             @controllers.AdminController.index()
+GET         /admin/add                         @controllers.AdminController.add()
+POST        /admin/save                        @controllers.AdminController.store()
+GET         /admin/list                        @controllers.AdminController.listAdmin()
+GET         /admin/edit/:id                    @controllers.AdminController.edit(id:Long)
+POST        /admin/update                      @controllers.AdminController.update()
+POST        /admin/delete/:id                  @controllers.AdminController.delete(id:Long)
+#Mahasiswa
+GET         /admin/mahasiswa                   @controllers.MahasiswaController.index()
+GET         /admin/mahasiswa/add               @controllers.MahasiswaController.add()
+POST        /admin/mahasiswa/save              @controllers.MahasiswaController.store()
+GET         /admin/mahasiswa/list              @controllers.MahasiswaController.listMahasiswa()
+GET         /admin/mahasiswa/edit/:id          @controllers.MahasiswaController.edit(id:Long)
+POST        /admin/mahasiswa/update            @controllers.MahasiswaController.update()
+POST        /admin/mahasiswa/delete/:id        @controllers.MahasiswaController.delete(id:Long)
+GET         /admin/mahasiswa/detail/:id        @controllers.MahasiswaController.detail(id:Long)
+#Jurusan
+GET         /admin/jurusan                     @controllers.JurusanController.index()
+GET         /admin/jurusan/add                 @controllers.JurusanController.add()
+POST        /admin/jurusan/save                @controllers.JurusanController.store()
+GET         /admin/jurusan/list                @controllers.JurusanController.listJurusan()
+GET         /admin/jurusan/edit/:id            @controllers.JurusanController.edit(id:Long)
+POST        /admin/jurusan/update              @controllers.JurusanController.update()
+POST        /admin/jurusan/delete/:id          @controllers.JurusanController.delete(id:Long)
+#Mata Kuliah
+GET         /admin/matkul                      @controllers.MatkulController.index()
+GET         /admin/matkul/add                  @controllers.MatkulController.add()
+POST        /admin/matkul/save                 @controllers.MatkulController.store()
+GET         /admin/matkul/list                 @controllers.MatkulController.listMatkul()
+GET         /admin/matkul/edit/:id             @controllers.MatkulController.edit(id:Long)
+POST        /admin/matkul/update               @controllers.MatkulController.update()
+POST        /admin/matkul/delete/:id           @controllers.MatkulController.delete(id:Long)
+#Mata Kuliah
+GET         /admin/dosen                       @controllers.DosenController.index()
+GET         /admin/dosen/add                   @controllers.DosenController.add()
+POST        /admin/dosen/save                  @controllers.DosenController.store()
+GET         /admin/dosen/list                  @controllers.DosenController.listDosen()
+GET         /admin/dosen/edit/:id              @controllers.DosenController.edit(id:Long)
+POST        /admin/dosen/update                @controllers.DosenController.update()
+POST        /admin/dosen/delete/:id            @controllers.DosenController.delete(id:Long)
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                      @controllers.Assets.versioned(path="/public", file: Asset)

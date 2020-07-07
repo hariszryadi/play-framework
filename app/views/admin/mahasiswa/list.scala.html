@@ -1,0 +1,76 @@
+@layout.main("List Mahasiswa", "List Mahasiswa", scripts){
+    <div id="messages-div">
+        @if(flash.containsKey("success")) {
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @flash.get("success")
+            </div>
+        }
+        @if(flash.containsKey("error")) {
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @flash.get("error")
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-md-12" style=" margin-bottom: 30px;">
+            <a class="btn btn-info btn-sm pull-right" href="@controllers.routes.MahasiswaController.add()">
+                <i class="fa fa-plus"></i> Tambah Mahasiswa
+            </a>
+        </div>
+    </div>
+    <div class="box-body data-tables table-responsive table-invest">
+        <table id="mahasiswa" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>NIM</th>
+                    <th>Jurusan</th>
+                    <th>Angkatan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+}
+
+@scripts = {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#mahasiswa').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": "@controllers.routes.MahasiswaController.listMahasiswa()"
+                });
+            });
+
+            function deleteDataMahasiswa(id) {
+                if (confirm("Are you sure to delete ?")){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/mahasiswa/delete/' + id ,
+                        data: {
+                            id : id
+                        },
+                        success : function (res) {
+                            alert(res.message);
+                            window.location.reload();
+                        },
+                        error : function (res) {
+                            alert(res.message);
+                            window.location.reload();
+                        }
+                    });
+                }
+            }
+
+            function detailMahasiswa(id){
+                $('#myModal').modal('show');
+                $('#id').val(id);
+            }
+
+    </script>
+};

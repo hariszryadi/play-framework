@@ -1,0 +1,66 @@
+@layout.main("List Jurusan", "List Jurusan", scripts) {
+    <div id="messages-div">
+        @if(flash.containsKey("success")) {
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @flash.get("success")
+            </div>
+        }
+        @if(flash.containsKey("error")) {
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                @flash.get("error")
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-md-12" style=" margin-bottom: 30px;">
+            <a class="btn btn-info btn-sm pull-right" href="@controllers.routes.JurusanController.add()">
+                <i class="fa fa-plus"></i> Tambah Jurusan
+            </a>
+        </div>
+    </div>
+    <div class="box-body data-tables table-responsive table-invest">
+        <table id="jurusan" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Jurusan</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+}
+@scripts = {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#jurusan').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": "@controllers.routes.JurusanController.listJurusan()"
+                });
+            });
+
+            function deleteDataJurusan(id) {
+                if (confirm('Are you sure to delete ?')){
+                    $.ajax({
+                        type:'POST',
+                        url:'/admin/jurusan/delete/' +id,
+                        data:{
+                            id:id
+                        },
+                        success: function(res){
+                            alert(res.message);
+                            window.location.reload();
+                        },
+                        error: function (res){
+                            alert(res.message);
+                            window.location.reload();
+                        }
+                    })
+                }
+            }
+
+    </script>
+}

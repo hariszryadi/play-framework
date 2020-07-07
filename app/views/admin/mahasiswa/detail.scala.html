@@ -1,0 +1,31 @@
+
+@(id: Long, data : List[Mahasiswa])
+
+@layout.main("Detail Profil", "Detail Profil"){
+    <div class="row">
+        <div class="col-md-2" style=" margin-bottom: 30px;">
+            <ul class="list-group">
+                <li class="list-group-item">Nama</li>
+                <li class="list-group-item">Tanggal Lahir</li>
+                <li class="list-group-item">Email</li>
+                <li class="list-group-item">No Telepon</li>
+                <li class="list-group-item">Alamat</li>
+                <li class="list-group-item">Foto</li>
+            </ul>
+        </div>
+        <div class="col-md-10" style=" margin-bottom: 30px;">
+            @for(x <- data) {
+                <ul class="list-group">
+                    <li class="list-group-item">@x.name</li>
+                    <li class="list-group-item">@x.birth</li>
+                    <li class="list-group-item">@x.email</li>
+                    <li class="list-group-item">@x.no_phone</li>
+                    <li class="list-group-item">@x.address</li>
+                    <li class="list-group-item"><img src="@routes.Assets.versioned("upload/images/avatars/" + x.image )" width="100%" />
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+
+}
